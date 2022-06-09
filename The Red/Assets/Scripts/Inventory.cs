@@ -1,34 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public List<InventoryItem> Items = new List<InventoryItem>(); // Generates a list of Inventory Items, called Items
+    public GenericRaycast raycast;
+    private int scrapPicked = 0;
+
+    public Text invenOutPutNumber;
 
 
-    public Transform g_inventoryPanel;  // Reference to InventoryUI graphic (panel) 
-    private List<SlotUI> g_slots = new List<SlotUI>();
 
-    void Awake()
+    void Update()
     {
-        foreach (Transform slotGraphic in g_inventoryPanel)
+        invenOutPutNumber.text = scrapPicked.ToString();
+
+        if (raycast.objectPickedup)
         {
-            g_slots.Add(slotGraphic.GetComponent<SlotUI>());
+            PickupUpdate();
         }
     }
 
-    public void AddItem(InventoryItem item)
+    private void PickupUpdate()
     {
-        if (Items.Count < g_slots.Count) // checks there are free  slot
-            Items.Add(item);
-        foreach (SlotUI slot in g_slots)
-        {
-            if (slot.Item == null)
-            {
-                slot.SetItem(item);
-                return;
-            }
-        }
+        scrapPicked++;
+        raycast.objectPickedup = false;
     }
+     
+
 }

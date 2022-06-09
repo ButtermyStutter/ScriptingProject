@@ -15,7 +15,25 @@ public class PickupConfirmation : MonoBehaviour
     public Image buttonForeground;
     public Text displayMessage;
     public Text displayE;
+    public GenericRaycast raycast;
 
+    private void Update()
+    {
+        if(raycast.g_isHit)
+        {
+            buttonBackground.gameObject.SetActive(true);
+            buttonForeground.gameObject.SetActive(true);
+            displayMessage.gameObject.SetActive(true);
+            displayE.gameObject.SetActive(true);
+        }
+        else
+        {
+            buttonBackground.gameObject.SetActive(false);
+            buttonForeground.gameObject.SetActive(false);
+            displayMessage.gameObject.SetActive(false);
+            displayE.gameObject.SetActive(false);
+        }
+    }
     private void Awake()
     {
         buttonBackground.gameObject.SetActive(false);
@@ -31,6 +49,7 @@ public class PickupConfirmation : MonoBehaviour
             PlaySoundClip();
             Debug.Log("Sound played!");
         }
+        
     }
     public void PlaySoundClip()
         {
